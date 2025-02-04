@@ -1,6 +1,6 @@
 <?php
 
-class RAsDAO {
+class RA {
     private $id;
     private $nombre;
 

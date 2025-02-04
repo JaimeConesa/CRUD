@@ -1,6 +1,6 @@
 <?php
 
-class CriteriosEvaluacionDAO {
+class CriterioEvaluacion {
     private $id;
     private $nombre;
 
