@@ -12,15 +12,6 @@
     <label>Nombre:</label>
     <input type="text" name="nombre" required>
     <br>
-
-    <label>Código:</label>
-    <input type="text" name="codigo" required>
-    <br>
-
-    <label>Descripción:</label>
-    <textarea name="descripcion" required></textarea>
-    <br>
-
     <button type="submit">Guardar</button>
 </form>
 
@@ -29,15 +20,13 @@
     <tr>
         <th>ID</th>
         <th>Nombre</th>
-        <th>Código</th>
-        <th>Descripción</th>
+        <th>Acciones</th>
     </tr>
 
     <?php
-require_once __DIR__ . '/../../config/conexion.php'; // Subir un nivel
-require_once '../../Modelos/AsignaturaManager.php';
+    require_once __DIR__ . '/../../config/conexion.php';
+    require_once __DIR__ . '/../../Modelos/AsignaturaManager.php';
 
-    // Obtener todas las asignaturas
     $conexion = ConexionDB::getInstancia()->getConexion();
     $asignaturaManager = new AsignaturaManager($conexion);
     $asignaturas = $asignaturaManager->findAll();
@@ -46,8 +35,9 @@ require_once '../../Modelos/AsignaturaManager.php';
         echo "<tr>
                 <td>{$asignatura->getId()}</td>
                 <td>{$asignatura->getNombre()}</td>
-                <td>{$asignatura->getCodigo()}</td>
-                <td>{$asignatura->getDescripcion()}</td>
+                <td>
+                    <a href='AsignaturaController.php?action=eliminar&id={$asignatura->getId()}'>Eliminar</a>
+                </td>
               </tr>";
     }
     ?>
