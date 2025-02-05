@@ -55,7 +55,7 @@ class AsignaturaManager {
                 $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             } else {
                 // Insertar
-                $query = "INSERT INTO asignaturas (nombre) VALUES (:nombre,)";
+                $query = "INSERT INTO asignaturas (nombre) VALUES (:nombre)";
                 $stmt = $this->conexion->prepare($query);
             }
     
@@ -68,7 +68,6 @@ class AsignaturaManager {
         }
     }
     
-
     // Eliminar
     public function delete(int $id): bool {
         try {

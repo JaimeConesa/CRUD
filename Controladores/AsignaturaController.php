@@ -17,15 +17,22 @@ if ($action === 'guardar' && $_SERVER["REQUEST_METHOD"] === "POST") {
     $nuevaAsignatura = new Asignatura(null, $nombre);
     $asignaturaManager->save($nuevaAsignatura);
 
-    header("Location: ../Vista/Asignaturas/index.php");
+    // Devuelves la nueva fila de la tabla como respuesta
+    echo "<tr id='row_{$nuevaAsignatura->getId()}'>
+            <td>{$nuevaAsignatura->getId()}</td>
+            <td>{$nuevaAsignatura->getNombre()}</td>
+            <td>
+                <button class='btn btn-danger eliminar' data-id='{$nuevaAsignatura->getId()}'>Eliminar</button>
+            </td>
+          </tr>";
     exit();
 }
 
 if ($action === 'eliminar' && isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $asignaturaManager->delete($id);
-
-    header("Location: ../Vista/Asignaturas/index.php");
+    
+    // No es necesario devolver nada, ya que el AJAX eliminará la fila.
     exit();
 }
 ?>
