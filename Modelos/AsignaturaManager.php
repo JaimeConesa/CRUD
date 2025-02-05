@@ -49,13 +49,13 @@ class AsignaturaManager {
         try {
             if ($asignatura->getId()) {
                 // Actualizar
-                $query = "UPDATE asignaturas SET nombre = :nombre, codigo = :codigo WHERE id = :id";
+                $query = "UPDATE asignaturas SET nombre = :nombre WHERE id = :id";
                 $stmt = $this->conexion->prepare($query);
                 $id = $asignatura->getId(); // Asignar el ID a una variable
                 $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             } else {
                 // Insertar
-                $query = "INSERT INTO asignaturas (nombre, codigo) VALUES (:nombre, :codigo)";
+                $query = "INSERT INTO asignaturas (nombre) VALUES (:nombre,)";
                 $stmt = $this->conexion->prepare($query);
             }
     

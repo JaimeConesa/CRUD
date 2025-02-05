@@ -8,7 +8,7 @@
 <body>
 
 <h2>Agregar Nueva Asignatura</h2>
-<form action="AsignaturaController.php?action=guardar" method="POST">
+<form action="../../Controladores/AsignaturaController.php?action=guardar" method="POST">
     <label>Nombre:</label>
     <input type="text" name="nombre" required>
     <br>
@@ -36,7 +36,7 @@
                 <td>{$asignatura->getId()}</td>
                 <td>{$asignatura->getNombre()}</td>
                 <td>
-                    <a href='AsignaturaController.php?action=eliminar&id={$asignatura->getId()}'>Eliminar</a>
+                    <a href='../../Controladores/AsignaturaController.php?action=eliminar&id={$asignatura->getId()}'>Eliminar</a>
                 </td>
               </tr>";
     }
