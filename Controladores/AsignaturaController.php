@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/config/conexion.php';
+require_once __DIR__ . '/../config/conexion.php'; // Subir un nivel
 require_once 'AsignaturaManager.php';
 
 // Obtener la conexión
-$conexion = Database::getConexion();
+$conexion = ConexionDB::getInstancia()->getConexion();  
 $asignaturaManager = new AsignaturaManager($conexion);
 
 // Buscar todas las asignaturas
@@ -27,7 +27,7 @@ if ($action === 'guardar' && $_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Crear una nueva asignatura y guardarla
-    $nuevaAsignatura = new Asignatura(null, $nombre, $codigo, $descripcion);
+    $nuevaAsignatura = new Asignatura(null, $nombre);
     $asignaturaManager->save($nuevaAsignatura);
 
     // Redirigir a index.php para ver la lista actualizada

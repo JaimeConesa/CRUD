@@ -34,11 +34,11 @@
     </tr>
 
     <?php
-    require_once 'Database.php';
-    require_once 'AsignaturaManager.php';
+require_once __DIR__ . '/../../config/conexion.php'; // Subir un nivel
+require_once '../../Modelos/AsignaturaManager.php';
 
     // Obtener todas las asignaturas
-    $conexion = Database::getConexion();
+    $conexion = ConexionDB::getInstancia()->getConexion();
     $asignaturaManager = new AsignaturaManager($conexion);
     $asignaturas = $asignaturaManager->findAll();
 

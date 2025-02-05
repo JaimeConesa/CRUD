@@ -1,19 +1,19 @@
 <?php
-
 class ConexionDB {
     private static $instancia = null;
     private $conexion;
 
     private function __construct() {
         $server = "localhost";
-        $host = "root";
-        $pass = "";
-        $db = "crud";
+        $dbname = "crud";
+        $usuario = "root";
+        $password = "";
 
-        $this->conexion = new mysqli($server, $host, $pass, $db);
-
-        if ($this->conexion->connect_errno) {
-            die("Conexión fallida: " . $this->conexion->connect_error);
+        try {
+            $this->conexion = new PDO("mysql:host=$server;dbname=$dbname;charset=utf8", $usuario, $password);
+            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
 
@@ -32,6 +32,4 @@ class ConexionDB {
 // Uso del Singleton
 $conexion = ConexionDB::getInstancia()->getConexion();
 echo "Conexión establecida";
-
 ?>
-
