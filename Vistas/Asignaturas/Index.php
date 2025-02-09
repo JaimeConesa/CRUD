@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-    <h2>Lista de Asignaturas</h2>
+    <h2 class="mt-4">Lista de Asignaturas</h2>
 
     <a href="agregar.php" class="btn btn-primary mb-3">Agregar Nueva Asignatura</a>
 
@@ -35,7 +35,8 @@
                         <td>{$asignatura->getId()}</td>
                         <td>{$asignatura->getNombre()}</td>
                         <td>
-                            <a href='eliminar.php?id={$asignatura->getId()}' class='btn btn-danger'>Eliminar</a>
+                            <a href='editar.php?id={$asignatura->getId()}' class='btn btn-warning'>Editar</a>
+                            <a href='eliminar.php?id={$asignatura->getId()}' class='btn btn-danger' onclick='return confirm(\"¿Seguro que deseas eliminar esta asignatura?\")'>Eliminar</a>
                         </td>
                     </tr>";
             }

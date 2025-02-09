@@ -16,12 +16,12 @@ class AsignaturaManager {
             $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch(PDO::FETCH_OBJ);
             if (!$row) {
                 return null;
             }
 
-            return new Asignatura($row['id'], $row['nombre']); // Asegúrate de que tu clase Asignatura tiene estos atributos.
+            return new Asignatura($row->id, $row->nombre);        
         } catch (PDOException $e) {
             die("Error al buscar la asignatura: " . $e->getMessage());
         }
@@ -34,8 +34,8 @@ class AsignaturaManager {
             $stmt = $this->conexion->query($query);
             $asignaturas = [];
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $asignaturas[] = new Asignatura($row['id'], $row['nombre']);
+            while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                $asignaturas[] = new Asignatura($row->id, $row->nombre);
             }
 
             return $asignaturas;
