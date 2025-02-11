@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
-require_once __DIR__ . '/../../Modelos/CriterioEvaluacionManager.php';
+require_once __DIR__ . '/../../Modelos/RAManager.php';
 require_once __DIR__ . '/../../Modelos/AsignaturaManager.php';
 
 $conexion = ConexionDB::getInstancia()->getConexion();
-$criterioEvaluacionManager = new CriterioEvaluacionManager($conexion);
+$rAManager = new RAManager($conexion);
 $asignaturaManager = new AsignaturaManager($conexion);
 
 if (!isset($_GET['id'])) {
@@ -12,9 +12,9 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-$criterio = $criterioEvaluacionManager->findById($id);
+$resultados = $rAManager->findById($id);
 
-if (!$criterio) {
+if (!$RESI) {
     die("Criterio de Evaluación no encontrado.");
 }
 
@@ -22,10 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nuevoNombre = $_POST["nombre"];
     $nuevaAsignaturaId = $_POST["asignatura_id"];
 
-    $criterio->setNombre($nuevoNombre);
-    $criterio->setAsignaturaId($nuevaAsignaturaId);
+    $resultados->setNombre($nuevoNombre);
+    $resultados->setAsignaturaId($nuevaAsignaturaId);
     
-    if ($criterioEvaluacionManager->save($criterio)) {
+    if ($rAManager->save($resultados)) {
         header("Location: index.php");
         exit();
     } else {
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <form method="POST">
         <div class="form-group">
             <label for="nombre">Nombre del Criterio:</label>
-            <input type="text" name="nombre" class="form-control" value="<?php echo htmlspecialchars($criterio->getNombre()); ?>" required>
+            <input type="text" name="nombre" class="form-control" value="<?php echo htmlspecialchars($resultados->getNombre()); ?>" required>
         </div>
 
         <div class="form-group">
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php
                 $asignaturas = $asignaturaManager->findAll();
                 foreach ($asignaturas as $asignatura) {
-                    $selected = ($criterio->getAsignaturaId() == $asignatura->getId()) ? 'selected' : '';
+                    $selected = ($resultados->getAsignaturaId() == $asignatura->getId()) ? 'selected' : '';
                     echo "<option value='{$asignatura->getId()}' $selected>{$asignatura->getNombre()}</option>";
                 }
                 ?>
