@@ -14,10 +14,11 @@ switch ($action) {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $id = $_POST['id'] ?? null;
             $nombre = $_POST['nombre'] ?? '';
-            $id_asignatura = $_POST['id_asignatura'] ?? '';
+            $resultado_aprendizaje_id = $_POST['resultado_aprendizaje_id'] ?? '';  // Cambiar aquí
 
-            if (!empty($nombre) && !empty($id_asignatura)) {
-                $criterio = new CriteriosEvaluacion($id ? (int) $id : null, $nombre, (int) $id_asignatura);
+            if (!empty($nombre) && !empty($resultado_aprendizaje_id)) {  // Cambiar aquí
+                // Usar el nuevo campo 'resultado_aprendizaje_id' en lugar de 'id_asignatura'
+                $criterio = new CriteriosEvaluacion($id ? (int) $id : null, $nombre, (int) $resultado_aprendizaje_id);  // Cambiar aquí
                 $criteriosEvaluacionManager->save($criterio);
             }
         }

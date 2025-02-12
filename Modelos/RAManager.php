@@ -9,7 +9,7 @@ class RAManager {
     }
 
     // Buscar por ID
-    public function findById(int $id): ?RA {
+    public function findById(int $id): ?RA {  // Cambié RAs a RA
         try {
             $query = "SELECT * FROM resultados_aprendizaje WHERE id = :id";
             $stmt = $this->conexion->prepare($query);
@@ -21,7 +21,7 @@ class RAManager {
                 return null;
             }
 
-            return new RA($row->id, $row->nombre, $row->asignatura_id);
+            return new RA($row->id, $row->nombre, $row->asignatura_id);  // Cambié RAs a RA
         } catch (PDOException $e) {
             die("Error al buscar el criterio de evaluación: " . $e->getMessage());
         }
@@ -45,7 +45,7 @@ class RAManager {
     }
 
     // Guardar (Insertar o actualizar)
-    public function save(RA $resultados): bool {
+    public function save(RA $resultados): bool {  // Cambié RAs a RA
         try {
             if ($resultados->getId()) {
                 // Actualizar
