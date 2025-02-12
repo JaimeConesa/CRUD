@@ -1,7 +1,7 @@
 <?php
 echo 'El archivo RA.php ha sido cargado';
 
-class RAs {
+class RA {
     private ?int $id;
     private string $nombre;
     private int $asignatura_id;  

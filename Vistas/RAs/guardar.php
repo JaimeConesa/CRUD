@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rAManager = new RAManager($conexion);
     
 
-    $nuevoRA = new RA(null, $nombre, $asignatura_id); 
+    $nuevoRA = new RAs (null, $nombre, $asignatura_id); 
     
     if ($rAManager->save($nuevoRA)) {
         header('Location: index.php');

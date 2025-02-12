@@ -1,13 +1,15 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../Modelos/CriterioEvaluacionManager.php';
+require_once __DIR__ . '/../../Modelos/CriterioEvaluacion.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
-    $resultados_aprendizaje_id = $_POST['resultados_aprendizaje_id']; 
+    $ra_id = $_POST['ra_id'] ?? null;
 
     // Validación
-    if (empty($nombre) || empty($resultados_aprendizaje_id)) {
+    if (empty($nombre) || empty($ra_id)) {
         die('El nombre y el resultado de aprendizaje son obligatorios.');
     }
 
@@ -15,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $criterioManager = new CriterioEvaluacionManager($conexion);
 
     // Crear nuevo criterio de evaluación
-    $nuevoCriterio = new CriterioEvaluacion(null, $nombre, $resultados_aprendizaje_id); 
-    
+    $nuevoCriterio = new CriterioEvaluacion(null, $nombre, $ra_id); 
+
     if ($criterioManager->save($nuevoCriterio)) {
         header('Location: index.php');
         exit();

@@ -7,29 +7,40 @@ $conexion = ConexionDB::getInstancia()->getConexion();
 $criterioManager = new CriterioEvaluacionManager($conexion);
 $raManager = new RAManager($conexion);
 
+// Verificar si el ID está presente en la URL
 if (!isset($_GET['id'])) {
     die("ID no especificado.");
 }
 
 $id = $_GET['id'];
+
+// Obtener el criterio de evaluación con el ID proporcionado
 $criterio = $criterioManager->findById($id);
 
+// Verificar si el criterio existe
 if (!$criterio) {
     die("Criterio de Evaluación no encontrado.");
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Recoger los datos enviados en el formulario
     $nuevoNombre = $_POST["nombre"];
-    $nuevoRaId = $_POST["ra_id"]; // Cambiado a `ra_id`
+    $nuevoRaId = isset($_POST["ra_id"]) && is_numeric($_POST["ra_id"]) ? (int)$_POST["ra_id"] : null;
 
-    $criterio->setNombre($nuevoNombre);
-    $criterio->setRaId($nuevoRaId); // Cambiado a `setRaId()`
-    
-    if ($criterioManager->save($criterio)) {
-        header("Location: index.php");
-        exit();
+    // Verificar que el ra_id no esté vacío y es válido
+    if ($nuevoRaId !== null) {
+        $criterio->setNombre($nuevoNombre);  // Actualizar el nombre
+        $criterio->setId_ra($nuevoRaId);      // Actualizar el ra_id
+
+        // Intentar guardar los cambios
+        if ($criterioManager->save($criterio)) {
+            header("Location: index.php");  // Redirigir al listado después de guardar
+            exit();
+        } else {
+            echo "Error al actualizar el criterio de evaluación.";
+        }
     } else {
-        echo "Error al actualizar el criterio de evaluación.";
+        echo "El Resultado de Aprendizaje es obligatorio.";
     }
 }
 ?>
@@ -54,13 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="form-group">
             <label for="ra_id">Resultado de Aprendizaje:</label>
-            <select class="form-control" name="ra_id" required> <!-- Cambiado a `ra_id` -->
+            <select class="form-control" name="ra_id" required>
                 <?php
-                $ras = $raManager->findAll();
-                foreach ($ras as $ra) {
-                    $selected = ($criterio->getRaId() == $ra->getId()) ? 'selected' : ''; // Cambiado a `getRaId()`
-                    echo "<option value='{$ra->getId()}' $selected>{$ra->getNombre()}</option>";
-                }
+                    // Obtener todos los resultados de aprendizaje
+                    $ras = $raManager->findAll();
+                    foreach ($ras as $ra) {
+                        // Verificar si el resultado de aprendizaje está seleccionado
+                        $selected = ($criterio->getId_ra() == $ra->getId()) ? 'selected' : '';
+                        echo "<option value='{$ra->getId()}' $selected>{$ra->getNombre()}</option>";
+                    }
                 ?>
             </select>
         </div>

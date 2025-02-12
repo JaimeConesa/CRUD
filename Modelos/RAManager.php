@@ -35,12 +35,12 @@ class RAManager {
             $resultados = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-                $resultados[] = new RA($row->id, $row->nombre, $row->asignatura_id);
+                $resultados[] = new RA($row->id, $row->nombre, $row->asignatura_id);  // Cambié RAs a RA
             }
 
             return $resultados;
         } catch (PDOException $e) {
-            die("Error al obtener los criterios de evaluación: " . $e->getMessage());
+            die("Error al obtener los resultados de aprendizaje: " . $e->getMessage());
         }
     }
 

@@ -35,7 +35,7 @@ class CriterioEvaluacionManager {
             $criterios = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-                $criterios[] = new CriterioEvaluacion($row->id, $row->nombre, $row->resultados_aprendizaje_id );
+                $criterios[] = new CriterioEvaluacion($row->id, $row->nombre, $row->resultados_aprendizaje_id);
             }
 
             return $criterios;
@@ -60,9 +60,9 @@ class CriterioEvaluacionManager {
             }
 
             $nombre = $criterio->getNombre();
-            $resultados_aprendizaje_id  = $criterio->getIdRA();
+            $ra_id  = $criterio->getId_ra();
             $stmt->bindParam(":nombre", $nombre, PDO::PARAM_STR);
-            $stmt->bindParam(":resultados_aprendizaje_id ", $resultados_aprendizaje_id , PDO::PARAM_INT);
+            $stmt->bindParam(":resultados_aprendizaje_id", $ra_id, PDO::PARAM_INT);
 
             return $stmt->execute();
         } catch (PDOException $e) {

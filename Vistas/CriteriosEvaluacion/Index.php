@@ -23,34 +23,34 @@
             </tr>
         </thead>
         <tbody>
-            <?php
-            require_once __DIR__ . '/../../config/conexion.php';
-            require_once __DIR__ . '/../../Modelos/CriterioEvaluacionManager.php';
-            require_once __DIR__ . '/../../Modelos/RAManager.php';
+        <?php
+require_once __DIR__ . '/../../config/conexion.php';
+require_once __DIR__ . '/../../Modelos/CriterioEvaluacionManager.php';
+require_once __DIR__ . '/../../Modelos/RAManager.php';
 
-            $conexion = ConexionDB::getInstancia()->getConexion();
-            $criterioManager = new CriterioEvaluacionManager($conexion);
-            $rAManager = new RAManager($conexion);
-            $criterios = $criterioManager->findAll();
+$conexion = ConexionDB::getInstancia()->getConexion();
+$criterioManager = new CriterioEvaluacionManager($conexion);
+$rAManager = new RAManager($conexion);
+$criterios = $criterioManager->findAll();
 
-            foreach ($criterios as $criterio) {
-                // Obtener el nombre del Resultado de Aprendizaje al que pertenece
-                $raId = $criterio->getRAId();
-                $ra = $rAManager->findById($raId);
-                $raNombre = $ra ? $ra->getNombre() : "Desconocido";
+foreach ($criterios as $criterio) {
+    // Obtener el nombre del Resultado de Aprendizaje al que pertenece
+    $raId = $criterio->getId_ra();
+    $ra = $rAManager->findById($raId); // Aquí se pasa el $raId
+    $raNombre = $ra ? $ra->getNombre() : "Desconocido"; // Si no se encuentra, mostrar "Desconocido"
 
-                // Mostrar los datos en la tabla
-                echo "<tr>
-                        <td>{$criterio->getId()}</td>
-                        <td>{$criterio->getNombre()}</td>
-                        <td>{$raNombre}</td> <!-- Mostrar el nombre del RA -->
-                        <td>
-                            <a href='editar.php?id={$criterio->getId()}' class='btn btn-warning'>Editar</a>
-                            <a href='eliminar.php?id={$criterio->getId()}' class='btn btn-danger' onclick='return confirm(\"¿Seguro que deseas eliminar este criterio?\")'>Eliminar</a>
-                        </td>
-                    </tr>";
-            }
-            ?>
+    // Mostrar los datos en la tabla
+    echo "<tr>
+            <td>{$criterio->getId()}</td>
+            <td>{$criterio->getNombre()}</td>
+            <td>{$raNombre}</td> <!-- Mostrar el nombre del RA -->
+            <td>
+                <a href='editar.php?id={$criterio->getId()}' class='btn btn-warning'>Editar</a>
+                <a href='eliminar.php?id={$criterio->getId()}' class='btn btn-danger' onclick='return confirm(\"¿Seguro que deseas eliminar este criterio?\")'>Eliminar</a>
+            </td>
+        </tr>";
+}
+?>
         </tbody>
     </table>
 </div>
