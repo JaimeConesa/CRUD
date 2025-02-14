@@ -7,14 +7,13 @@ $conexion = ConexionDB::getInstancia()->getConexion();
 $criterioManager = new CriterioEvaluacionManager($conexion);
 $raManager = new RAManager($conexion);
 
-// Verificar si el ID está presente en la URL
+
 if (!isset($_GET['id'])) {
     die("ID no especificado.");
 }
 
 $id = $_GET['id'];
 
-// Obtener el criterio de evaluación con el ID proporcionado
 $criterio = $criterioManager->findById($id);
 
 // Verificar si el criterio existe
@@ -53,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Editar Criterio de Evaluación</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 <body>
-
 <div class="container">
     <h2 class="mt-4">Editar Criterio de Evaluación</h2>
     <form method="POST">
@@ -84,4 +83,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
 </html>

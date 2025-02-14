@@ -6,8 +6,8 @@
     <title>Criterios de Evaluación</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 <body>
-
 <div class="container">
     <h2 class="mt-4">Lista de Criterios de Evaluación</h2>
 
@@ -36,8 +36,8 @@ $criterios = $criterioManager->findAll();
 foreach ($criterios as $criterio) {
     // Obtener el nombre del Resultado de Aprendizaje al que pertenece
     $raId = $criterio->getId_ra();
-    $ra = $rAManager->findById($raId); // Aquí se pasa el $raId
-    $raNombre = $ra ? $ra->getNombre() : "Desconocido"; // Si no se encuentra, mostrar "Desconocido"
+    $ra = $rAManager->findById($raId); 
+    $raNombre = $ra ? $ra->getNombre() : "Desconocido";
 
     // Mostrar los datos en la tabla
     echo "<tr>
@@ -56,4 +56,5 @@ foreach ($criterios as $criterio) {
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
 </html>

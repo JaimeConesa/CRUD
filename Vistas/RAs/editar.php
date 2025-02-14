@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 $resultados = $rAManager->findById($id);
 
-if (!$RESI) {
+if (!$resultados) {  // Aquí estaba el error
     die("Criterio de Evaluación no encontrado.");
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nuevaAsignaturaId = $_POST["asignatura_id"];
 
     $resultados->setNombre($nuevoNombre);
-    $resultados->setAsignaturaId($nuevaAsignaturaId);
+    $resultados->setId_asignatura($nuevaAsignaturaId);
     
     if ($rAManager->save($resultados)) {
         header("Location: index.php");
@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Editar Criterio de Evaluación</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 <body>
 
 <div class="container">
@@ -58,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php
                 $asignaturas = $asignaturaManager->findAll();
                 foreach ($asignaturas as $asignatura) {
-                    $selected = ($resultados->getAsignaturaId() == $asignatura->getId()) ? 'selected' : '';
+                    $selected = ($resultados->getId_asignatura() == $asignatura->getId()) ? 'selected' : '';
                     echo "<option value='{$asignatura->getId()}' $selected>{$asignatura->getNombre()}</option>";
                 }
                 ?>
@@ -71,4 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
+
 </html>

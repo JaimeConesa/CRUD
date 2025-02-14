@@ -7,6 +7,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 
 <div class="container">
     <h2>Agregar Nueva Asignatura</h2>
@@ -20,4 +21,5 @@
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
 </html>

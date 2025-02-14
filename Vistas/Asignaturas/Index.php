@@ -6,8 +6,8 @@
     <title>Asignaturas</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 <body>
-
 <div class="container">
     <h2 class="mt-4">Lista de Asignaturas</h2>
 
@@ -46,4 +46,5 @@
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
 </html>

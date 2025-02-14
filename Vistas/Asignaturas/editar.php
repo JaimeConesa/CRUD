@@ -37,7 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Editar Asignatura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
+<?php include __DIR__ . '/../encabezado.php'; ?>
 <body>
+
 
 <div class="container">
     <h2 class="mt-4">Editar Asignatura</h2>
@@ -52,4 +54,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 </body>
+<?php include __DIR__ . '/../pie.php'; ?>
 </html>

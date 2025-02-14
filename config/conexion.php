@@ -31,5 +31,4 @@ class ConexionDB {
 
 // Uso del Singleton
 $conexion = ConexionDB::getInstancia()->getConexion();
-echo "Conexión establecida";
 ?>
